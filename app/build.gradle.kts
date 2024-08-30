@@ -84,15 +84,8 @@ dependencies {
     ksp (libs.dagger.compiler)
 
     implementation (libs.kotlinx.coroutines.android)
+    implementation("io.coil-kt:coil:2.7.0")
     // dependency for test cases
-//    testImplementation(libs.junit)
-//    testImplementation (libs.junit.jupiter.api)
-//    androidTestImplementation(libs.androidx.junit)
-//    androidTestImplementation(libs.androidx.espresso.core)
-//    testImplementation (libs.kotlinx.coroutines.test)
-//    testImplementation (libs.mockk)
-//    testImplementation(libs.kotlin.test)
-//    testImplementation(libs.turbine)
     testImplementation (libs.junit)
     testImplementation (libs.mockito.core)
     testImplementation (libs.androidx.core.testing)

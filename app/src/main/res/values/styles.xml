@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="NewsApp">
+        <item name="android:fontFamily">@font/dmsans_regular</item>
+    </style>
+
+    <!-- region H1 -->
+    <style name="NewsApp.H1">
+        <item name="android:textSize">@dimen/font_xlarge</item>
+    </style>
+
+    <style name="NewsApp.H1.Dark">
+        <item name="android:textColor">@color/grey_black</item>
+    </style>
+    <style name="NewsApp.H2">
+        <item name="android:textSize">@dimen/font_large</item>
+    </style>
+    <style name="NewsApp.H3">
+        <item name="android:textSize">@dimen/font_medium</item>
+    </style>
+
+    <style name="NewsApp.H2.Dark">
+        <item name="android:textColor">@color/grey_black</item>
+    </style>
+    <style name="NewsApp.H3.Dark">
+        <item name="android:textColor">@color/grey_black</item>
+    </style>
+
+
+
+    <style name="NewsApp.Subtitle_small">
+        <item name="android:textSize">@dimen/font_xsmall</item>
+    </style>
+    <style name="NewsApp.Subtitle_small.Light">
+        <item name="android:textColor">@color/light_grey</item>
+    </style>
+    <style name="NewsApp.Subtitle_small.Dark">
+        <item name="android:textColor">@color/dark_grey</item>
+    </style>
+
+
+
+
+</resources>

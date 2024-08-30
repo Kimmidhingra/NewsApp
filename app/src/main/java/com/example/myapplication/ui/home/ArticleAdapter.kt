@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.myapplication.databinding.ViewAlbumBinding
 import com.example.myapplication.model.Article
 
-class ArticleAdapter( private val articles: List<Article>) :
+class ArticleAdapter( private val articles: List<Article>, private val onClick: (Int) -> Unit) :
     RecyclerView.Adapter<ArticleAdapter.ArticleAdapterViewHolder>() {
 
     inner class ArticleAdapterViewHolder(val binding: ViewAlbumBinding) : ViewHolder(binding.root)
@@ -25,5 +25,8 @@ class ArticleAdapter( private val articles: List<Article>) :
 
     override fun onBindViewHolder(holder: ArticleAdapterViewHolder, position: Int) {
         holder.binding.txtTitle.text = articles[position].title
+        holder.itemView.setOnClickListener {
+            onClick.invoke(position)
+        }
     }
 }

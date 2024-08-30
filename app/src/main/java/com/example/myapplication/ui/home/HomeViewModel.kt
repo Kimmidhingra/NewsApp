@@ -30,6 +30,9 @@ class HomeViewModel @Inject constructor(
 
     val newsArticles: StateFlow<Resource<List<Article>>> = _newsArticles
 
+    private val _selectedPos = MutableLiveData<Int>(-1)
+    val selectedPos = _selectedPos
+
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"
@@ -55,8 +58,8 @@ class HomeViewModel @Inject constructor(
 //                }
 //
 //            }
-            newsRepository.getNews("tesla","").flowOn(dispatcherProvider.io).collect{resource->
-                    _newsArticles.value = resource
+            newsRepository.getNews("tesla", "").flowOn(dispatcherProvider.io).collect { resource ->
+                _newsArticles.value = resource
             }
         }
     }

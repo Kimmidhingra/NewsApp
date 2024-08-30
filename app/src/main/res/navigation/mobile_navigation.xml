@@ -24,4 +24,9 @@
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
 
+    <fragment
+        android:id="@+id/news_detail"
+        android:name="com.example.myapplication.ui.DetailNewsFragment"
+        tools:layout="@layout/fragment_detail_news" />
+
 </navigation>

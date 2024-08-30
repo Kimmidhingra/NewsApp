@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.home
+package com.example.myapplication.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -9,28 +9,31 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
+import coil.load
 import com.example.myapplication.MyApplication
-import com.example.myapplication.R
-import com.example.myapplication.databinding.FragmentHomeBinding
+import com.example.myapplication.databinding.FragmentDetailNewsBinding
 import com.example.myapplication.model.Article
 import com.example.myapplication.network.Resource
-import kotlinx.coroutines.flow.collect
+import com.example.myapplication.ui.home.HomeViewModel
+import com.example.myapplication.ui.home.HomeViewModelFactory
+import com.example.myapplication.utils.Pattern_DD_MM_YYYY
+import com.example.myapplication.utils.getFormattedDate
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class HomeFragment @Inject constructor() : Fragment() {
-    private lateinit var homeViewModel: HomeViewModel
+class DetailNewsFragment : Fragment() {
 
-    // initialize binding==========================================
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentDetailNewsBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
     private val binding get() = _binding!!
+    private lateinit var homeViewModel: HomeViewModel
 
     // inject variables=============================================
     @Inject
     lateinit var homeViewModelFactory: HomeViewModelFactory
-//    ================================================================
-
+    //    ================================================================
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -44,8 +47,7 @@ class HomeFragment @Inject constructor() : Fragment() {
     ): View {
         homeViewModel =
             ViewModelProvider(requireActivity(), homeViewModelFactory)[HomeViewModel::class.java]
-
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentDetailNewsBinding.inflate(inflater, container, false)
         val root: View = binding.root
         return root
     }
@@ -70,26 +72,26 @@ class HomeFragment @Inject constructor() : Fragment() {
 
                     is Resource.Success -> {
                         showProgressBar(false)
-                        showArticles(resource.data)
+                        showArticle(homeViewModel.selectedPos.value?.let { resource.data?.get(it) })
                     }
                 }
             }
         }
-        homeViewModel.newsArticles
+    }
+
+    private fun showArticle(article: Article?) {
+
+        article?.let {
+            binding.newsImage.load(article.urlToImage)
+            binding.txtTitle.text = it.title
+            binding.txtAuthorName.text = it.author
+            binding.txtPublishedTime.text =
+                it.publishedAt?.let { it1 -> getFormattedDate(Pattern_DD_MM_YYYY, it1) }
+        }
     }
 
     private fun showProgressBar(isLoading: Boolean) {
         binding.progressbar.isVisible = isLoading
-    }
-
-    private fun showArticles(articles: List<Article>?) {
-        articles?.let {
-            binding.rvArticles.adapter = ArticleAdapter(it){position->
-                homeViewModel.selectedPos.value = position
-                findNavController().navigate(R.id.news_detail)
-            }
-        }
-
     }
 
     override fun onDestroyView() {
